@@ -51,6 +51,34 @@ namespace TaskManagementApp.Controllers
 
             return View(task);
         }
+        
+        public IActionResult Delete(int id)
+        {
+            var task = tasks.Find(t => t.Id == id);
+
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            return View(task);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var task = tasks.Find(t => t.Id == id);
+
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            tasks.Remove(task);
+
+            return RedirectToAction("Index");
+        }
+
 
         [HttpPost]
         public IActionResult Edit(Task updatedTask)
